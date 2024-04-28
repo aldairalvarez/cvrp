@@ -213,15 +213,15 @@ static PyObject* column_generation( PyObject *self, PyObject *args){
     PyList_Append(Cuts,Cut);
   }
   
-  //Generalised large multistar inequalities
-  if (GLMCutListSize > 0){
-    PyObject* Cut = PyList_New(0);
-    PyList_Append(Cut,PyUnicode_FromString("glm"));
-    for(int i=1; i<=GLMCutListSize; i++){
-      PyList_Append(Cut,PyLong_FromLong(GLMCutList[i]));
-    }
-    PyList_Append(Cuts,Cut);
-  }
+  // //Generalised large multistar inequalities
+  // if (GLMCutListSize > 0){
+  //   PyObject* Cut = PyList_New(0);
+  //   PyList_Append(Cut,PyUnicode_FromString("glm"));
+  //   for(int i=1; i<=GLMCutListSize; i++){
+  //     PyList_Append(Cut,PyLong_FromLong(GLMCutList[i]));
+  //   }
+  //   PyList_Append(Cuts,Cut);
+  // }
 
   save_cuts(CutsCMP);
   printf("Cuts retrieved, returning results\n");
