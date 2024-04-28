@@ -90,39 +90,39 @@ static PyObject* column_generation( PyObject *self, PyObject *args){
   //capacity cuts
   CAPSEP_SeparateCapCuts(NoOfCustomers,Demand,CAP,NoOfEdges,EdgeTail,EdgeHead,EdgeX,::CMPExistingCuts,MaxNoOfCapCuts,EpsForIntegrality,&IntegerAndFeasible,&MaxCapViolation,CutsCMP);
  
-  if ( MaxCapViolation < 0.1 ){
-    //multistar cuts
-    int MaxNoOfMStarCuts = MaxNoOfCapCuts - CutsCMP->Size;
-    double MaxMStarViolation;
-    MSTARSEP_SeparateMultiStarCuts(NoOfCustomers,Demand,CAP,NoOfEdges,EdgeTail,EdgeHead,EdgeX,::CMPExistingCuts,MaxNoOfMStarCuts,&MaxMStarViolation,CutsCMP);
-  }
+  // if ( MaxCapViolation < 0.1 ){
+  //   //multistar cuts
+  //   int MaxNoOfMStarCuts = MaxNoOfCapCuts - CutsCMP->Size;
+  //   double MaxMStarViolation;
+  //   MSTARSEP_SeparateMultiStarCuts(NoOfCustomers,Demand,CAP,NoOfEdges,EdgeTail,EdgeHead,EdgeX,::CMPExistingCuts,MaxNoOfMStarCuts,&MaxMStarViolation,CutsCMP);
+  // }
 
-  printf("Large multistar inequalities\n");
-  //Large Multistar inequalities
-  int* GLMCutList = MemGetIV(NoOfEdges+1);
-  int GLMCutListSize;
-  double GLMViolation;
-  GLMSEP_SeparateGLM(NoOfCustomers,Demand,CAP,NoOfEdges,EdgeTail,EdgeHead,EdgeX,GLMCutList,&GLMCutListSize,&GLMViolation);
+  // printf("Large multistar inequalities\n");
+  // //Large Multistar inequalities
+  // int* GLMCutList = MemGetIV(NoOfEdges+1);
+  // int GLMCutListSize;
+  // double GLMViolation;
+  // GLMSEP_SeparateGLM(NoOfCustomers,Demand,CAP,NoOfEdges,EdgeTail,EdgeHead,EdgeX,GLMCutList,&GLMCutListSize,&GLMViolation);
 
-  printf("framed capacity inequalities\n");
-  // Framed capacity inequalities
-  double MaxFCIViolation;
-  int FCIMaxNoOfTreeNodes=100;
-  int MaxNoOfFCICuts = MaxNoOfCapCuts - CutsCMP->Size;
-  FCISEP_SeparateFCIs(NoOfCustomers, Demand, CAP, NoOfEdges, EdgeTail, EdgeHead, EdgeX, ::CMPExistingCuts, FCIMaxNoOfTreeNodes, MaxNoOfFCICuts, &MaxFCIViolation, CutsCMP);
+  // printf("framed capacity inequalities\n");
+  // // Framed capacity inequalities
+  // double MaxFCIViolation;
+  // int FCIMaxNoOfTreeNodes=100;
+  // int MaxNoOfFCICuts = MaxNoOfCapCuts - CutsCMP->Size;
+  // FCISEP_SeparateFCIs(NoOfCustomers, Demand, CAP, NoOfEdges, EdgeTail, EdgeHead, EdgeX, ::CMPExistingCuts, FCIMaxNoOfTreeNodes, MaxNoOfFCICuts, &MaxFCIViolation, CutsCMP);
 
-  printf("strenghtened comb inequalities\n");
-  // Stregthened comb inequalities
-  double MaxSCIViolation;
-  int MaxNoOfSCICuts = MaxNoOfCapCuts - CutsCMP->Size;
-  COMBSEP_SeparateCombs(NoOfCustomers, Demand, CAP, QMin, NoOfEdges, EdgeTail, EdgeHead, EdgeX, MaxNoOfSCICuts, &MaxSCIViolation, CutsCMP);
+  // printf("strenghtened comb inequalities\n");
+  // // Stregthened comb inequalities
+  // double MaxSCIViolation;
+  // int MaxNoOfSCICuts = MaxNoOfCapCuts - CutsCMP->Size;
+  // COMBSEP_SeparateCombs(NoOfCustomers, Demand, CAP, QMin, NoOfEdges, EdgeTail, EdgeHead, EdgeX, MaxNoOfSCICuts, &MaxSCIViolation, CutsCMP);
 
-  printf("hypotour inequalities\n");
-  // Hypotour inequalities
-  double MaxHTIViolation;
-  int MaxNoOfHTICuts = MaxNoOfCapCuts - CutsCMP->Size; 
-  printf("calling with max %d cuts\n", MaxNoOfHTICuts);
-  HTOURSEP_SeparateHTours(NoOfCustomers, Demand, CAP, NoOfEdges, EdgeTail, EdgeHead, EdgeX, ::CMPExistingCuts, MaxNoOfHTICuts, &MaxHTIViolation, CutsCMP);
+  // printf("hypotour inequalities\n");
+  // // Hypotour inequalities
+  // double MaxHTIViolation;
+  // int MaxNoOfHTICuts = MaxNoOfCapCuts - CutsCMP->Size; 
+  // printf("calling with max %d cuts\n", MaxNoOfHTICuts);
+  // HTOURSEP_SeparateHTours(NoOfCustomers, Demand, CAP, NoOfEdges, EdgeTail, EdgeHead, EdgeX, ::CMPExistingCuts, MaxNoOfHTICuts, &MaxHTIViolation, CutsCMP);
 
   //Retrieving the cuts
 
